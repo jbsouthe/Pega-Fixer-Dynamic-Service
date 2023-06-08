@@ -37,10 +37,10 @@ public class PegaFixerTask implements IAgentRunnable {
     @Override
     public void run() {
         if(!agentNodeProperties.isEnabled()) {
-            logger.info("Service " + agentService.getName() + " is not enabled. To enable it enable the node property agent.Task.enabled");
+            logger.info("Service " + agentService.getName() + " is not enabled. To enable it enable the node property "+ agentNodeProperties.ENABLE_PROPERTY);
             return;
         }
-
+        serviceComponent.getBCIFixerService().rulesChanged();
     }
 
     private void sendInfoEvent(String message) {

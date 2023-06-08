@@ -9,7 +9,7 @@ This plugin is in BETA and not supported by AppDynamics, please report any issue
 The agent dynamic service needs to be installed and then node properties from the Controller UI will dictate how it acts
 setting the following will cause it to perform the updates. The service will run and check for upgrades every 3 minutes, so when changing these parameters make sure to allow time to see execution.
 
-    "agent..enabled" - boolean, setting this to true causes this service to come alive
+    "agent.pegafixer.enabled" - boolean, setting this to true causes this service to come alive
 
 Once enabled, it will initialize retransformation again as though rules have changed, it may do more as i work through it, but that is the first thought on writing this
 

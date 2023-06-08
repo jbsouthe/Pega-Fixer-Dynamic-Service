@@ -24,7 +24,7 @@ public class PegaFixerService implements IDynamicService {
     private IAgentScheduledFuture scheduledTaskFuture;
     private final ServiceComponent serviceComponent = LifeCycleManager.getInjector();
     private long taskInitialDelay=0;
-    private long taskInterval=180; //every 3 minutes
+    private long taskInterval=180*10; //every 30 minutes
     private IAgentScheduledExecutorService scheduler;
     private IServiceContext iServiceContext;
     private IDynamicServiceManager dynamicServiceManager;
