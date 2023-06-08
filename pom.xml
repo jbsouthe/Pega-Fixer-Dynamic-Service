@@ -13,7 +13,7 @@
     </properties>
 
     <groupId>com.cisco.josouthe</groupId>
-    <artifactId>AgentLimitAlerting</artifactId>
+    <artifactId>PegaFixer</artifactId>
     <version>${version}-${timestamp}</version>
     <!-- <packaging>jar</packaging>  -->
 
@@ -203,7 +203,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptor>assembly-deployment.xml</descriptor>
-                    <finalName>appdynamics-agent-LimitAlerting-${pom.version}</finalName>
+                    <finalName>Appdynamics-${pom.artifactId}-${pom.version}</finalName>
                 </configuration>
                 <executions>
                     <execution>

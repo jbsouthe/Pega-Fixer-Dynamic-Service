@@ -1,11 +1,11 @@
-package com.singularity.ee.service.limitAlerting;
+package com.singularity.ee.service.pegafixer;
 
 import com.singularity.ee.agent.appagent.kernel.spi.IServicePropertyListener;
 
 public class AgentNodePropertyListener implements IServicePropertyListener {
-    private LimitAlertingService service;
+    private PegaFixerService service;
 
-    public AgentNodePropertyListener(LimitAlertingService service) {
+    public AgentNodePropertyListener(PegaFixerService service) {
         this.service=service;
         this.service.getServiceContext().getKernel().getConfigManager().registerConfigPropertyChangeListener("DynamicService", AgentNodeProperties.NODE_PROPERTIES, (IServicePropertyListener)this);
     }

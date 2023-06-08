@@ -1,4 +1,4 @@
-package com.singularity.ee.service.limitAlerting;
+package com.singularity.ee.service.pegafixer;
 
 import com.singularity.ee.agent.appagent.kernel.LifeCycleManager;
 import com.singularity.ee.agent.appagent.kernel.ServiceComponent;
@@ -15,14 +15,13 @@ import com.singularity.ee.util.javaspecific.threads.IAgentRunnable;
 import com.singularity.ee.util.spi.AgentTimeUnit;
 import com.singularity.ee.util.spi.IAgentScheduledExecutorService;
 import com.singularity.ee.util.spi.IAgentScheduledFuture;
-import com.singularity.ee.util.system.SystemUtils;
 
-public class LimitAlertingService implements IDynamicService {
+public class PegaFixerService implements IDynamicService {
 
     private AgentNodeProperties agentNodeProperties = new AgentNodeProperties();
-    private static final IADLogger logger = ADLoggerFactory.getLogger((String)"com.singularity.dynamicservice.limitAlerting.LimitAlertingService");
+    private static final IADLogger logger = ADLoggerFactory.getLogger((String)"com.singularity.dynamicservice.pegafixer.PegaFixerService");
     private boolean isServiceStarted = false;
-    private IAgentScheduledFuture scheduledTaskFuture, scheduledMetricTaskFuture;
+    private IAgentScheduledFuture scheduledTaskFuture;
     private final ServiceComponent serviceComponent = LifeCycleManager.getInjector();
     private long taskInitialDelay=0;
     private long taskInterval=180; //every 3 minutes
@@ -30,12 +29,12 @@ public class LimitAlertingService implements IDynamicService {
     private IServiceContext iServiceContext;
     private IDynamicServiceManager dynamicServiceManager;
 
-    public LimitAlertingService() {
+    public PegaFixerService() {
         logger.info(String.format("Initializing Agent %s %s build date %s by %s visit %s for the most up to date information.",
                 MetaData.SERVICENAME, MetaData.VERSION, MetaData.BUILDTIMESTAMP, MetaData.GECOS, MetaData.DEVNET));
     }
 
-    public LimitAlertingService(AgentNodeProperties agentNodeProperties, long taskInitialDelay, long taskInterval) {
+    public PegaFixerService(AgentNodeProperties agentNodeProperties, long taskInitialDelay, long taskInterval) {
         this();
         this.agentNodeProperties = agentNodeProperties;
         this.taskInitialDelay = taskInitialDelay;
@@ -73,20 +72,15 @@ public class LimitAlertingService implements IDynamicService {
             throw new ServiceStartException("Dagger not initialised, so cannot start the "+ MetaData.SERVICENAME);
         }
         this.scheduledTaskFuture = this.scheduler.scheduleAtFixedRate(this.createTask(this.serviceComponent), 0, this.taskInterval, AgentTimeUnit.SECONDS);
-        this.scheduledMetricTaskFuture = this.scheduler.scheduleAtFixedRate(this.createMetricTask(this.serviceComponent), 0, 60, AgentTimeUnit.SECONDS);
         this.isServiceStarted = true;
         logger.info("Started " + this.getName() + " with initial delay " + this.taskInitialDelay + ", and with interval " + this.taskInterval + " in Seconds");
 
     }
-
-    private IAgentRunnable createMetricTask(ServiceComponent serviceComponent) {
-        logger.info("Creating Metric Sending Task for "+ MetaData.SERVICENAME);
-        return new LimitAlertingMetricTask( this, this.agentNodeProperties, serviceComponent, iServiceContext);
-    }
+    
 
     private IAgentRunnable createTask(ServiceComponent serviceComponent) {
         logger.info("Creating Task for "+ MetaData.SERVICENAME);
-        return new LimitAlertingTask( this, this.agentNodeProperties, serviceComponent, iServiceContext);
+        return new PegaFixerTask( this, this.agentNodeProperties, serviceComponent, iServiceContext);
     }
 
     @Override
@@ -103,8 +97,6 @@ public class LimitAlertingService implements IDynamicService {
         if (this.scheduledTaskFuture != null && !this.scheduledTaskFuture.isCancelled() && !this.scheduledTaskFuture.isDone()) {
             this.scheduledTaskFuture.cancel(true);
             this.scheduledTaskFuture = null;
-            this.scheduledMetricTaskFuture.cancel(true);
-            this.scheduledMetricTaskFuture = null;
             this.isServiceStarted = false;
             serviceComponent.getMetricHandler().getMetricService().hotEnable(); // when we stop the service, enable metrics again
             serviceComponent.getEventHandler().getEventService().hotEnable(); //enable all events again :)

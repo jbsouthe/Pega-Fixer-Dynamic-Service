@@ -1,16 +1,16 @@
-package com.singularity.ee.service.limitAlerting;
+package com.singularity.ee.service.pegafixer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MetaData {
-    public static final String VERSION = "v${version}";
-    public static final String BUILDTIMESTAMP = "${build.time}";
-    public static final String SERVICENAME = "Statistical Sampler Service";
+    public static final String VERSION = "v0.1";
+    public static final String BUILDTIMESTAMP = "06/08/2023 12:43 PM -0600";
+    public static final String SERVICENAME = "Pega Fixer Service";
     public static final String GECOS = "John Southerland josouthe@cisco.com AppDynamics Field Architecture Team";
-    public static final String GITHUB = "https://github.com/jbsouthe/AppDynamics-LimitAlerting-Dynamic-Service";
+    public static final String GITHUB = "https://github.com/jbsouthe/Pega-Fixer-Dynamic-Service";
     public static final String DEVNET = "";
-    public static final String SUPPORT = "/issues";
+    public static final String SUPPORT = "https://github.com/jbsouthe/Pega-Fixer-Dynamic-Service/issues";
 
 
     public static Map<String,String> getAsMap() {

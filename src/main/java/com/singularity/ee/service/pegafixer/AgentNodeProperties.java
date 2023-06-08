@@ -1,4 +1,4 @@
-package com.singularity.ee.service.limitAlerting;
+package com.singularity.ee.service.pegafixer;
 
 import com.singularity.ee.agent.appagent.kernel.spi.data.IServiceConfig;
 import com.singularity.ee.agent.util.log4j.ADLoggerFactory;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Observable;
 
 public class AgentNodeProperties extends Observable {
-    private static final IADLogger logger = ADLoggerFactory.getLogger((String)"com.singularity.dynamicservice.limitAlerting.AgentNodeProperties");
+    private static final IADLogger logger = ADLoggerFactory.getLogger((String)"com.singularity.dynamicservice.pegafixer.AgentNodeProperties");
     public static final String[] NODE_PROPERTIES = new String[]{"agent.limitAlerting.enabled"};
     private final Map<String, String> properties = new HashMap<>();
 
