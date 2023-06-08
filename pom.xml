@@ -190,8 +190,8 @@
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
                             <Implementation-Title>agent-limit-alerting-service</Implementation-Title>
-                            <implementation-class-name>com.singularity.ee.service.limitAlerting.LimitAlertingService</implementation-class-name>
-                            <Implementation-Version>v1.0</Implementation-Version>
+                            <implementation-class-name>com.singularity.ee.service.pegafixer.PegaFixerService</implementation-class-name>
+                            <Implementation-Version>v${version}</Implementation-Version>
                             <Implementation-Vendor>AppDynamics Field Architecture Team</Implementation-Vendor>
                         </manifestEntries>
                     </archive>

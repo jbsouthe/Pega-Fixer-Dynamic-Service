@@ -4,3 +4,4 @@ target/
 **/.DS_Store
 .idea
 src/main/java/com/singularity/ee/service/limitAlerting/MetaData.java
+src/main/java/com/singularity/ee/service/pegafixer/MetaData.java
